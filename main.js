@@ -3,7 +3,8 @@ var config = {
 	width: 800,
 	height: 600,
 	physics: {
-		default: 'arcade'
+		default: 'arcade',
+		gravity: { y: 0 }
 	},
 	scene: [ WelcomeScene, ForestScene ]
 };

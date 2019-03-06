@@ -5,7 +5,7 @@ var config = {
 	physics: {
 		default: 'arcade'
 	},
-	scene: [ WelcomeScene ]
+	scene: [ WelcomeScene, ForestScene ]
 };
 
 var game = new Phaser.Game(config);

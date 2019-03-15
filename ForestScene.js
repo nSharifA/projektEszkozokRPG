@@ -1,6 +1,9 @@
 let cursors;
 let player;
 let showDebug = false;
+let actionBar;
+let actionBarSelect;
+let actionSelect = 1;
 
 class ForestScene extends Phaser.Scene {
 
@@ -10,6 +13,8 @@ class ForestScene extends Phaser.Scene {
 
 	preload() {
 		this.load.image("ClassicRPG_Sheet", "../graphics/ClassicRPG_Sheet.png");
+    this.load.image("ActionBar", "../graphics/Action_Bar.png");
+    this.load.image("ActionBarSelect", "../graphics/Action_Bar_Select.png");    
 		this.load.tilemapTiledJSON("map", "../graphics/forest_map.json");
 
 		this.load.atlas("atlas", "../graphics/atlas.png", "../graphics/atlas.json");
@@ -73,6 +78,14 @@ class ForestScene extends Phaser.Scene {
   .setScrollFactor(0)
   .setDepth(30);
 
+  actionBar = this.add.image(400, 550, 'ActionBar')
+  .setScrollFactor(0)
+  .setDepth(30);
+
+  actionBarSelect = this.add.image(400-64, 550, 'ActionBarSelect')
+  .setScrollFactor(0)
+  .setDepth(30);
+
   // Debug graphics
   this.input.keyboard.once("keydown_D", event => {
     // Turn on physics debugging to show player's hitbox
@@ -89,6 +102,22 @@ class ForestScene extends Phaser.Scene {
       faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
   });
 });
+
+this.input.keyboard.on('keydown', function (e) {
+    if(e.key == "1"){
+      actionBarSelect.x = 400-64;
+      actionSelect = 1;
+    }
+    else if(e.key == "2"){
+      actionBarSelect.x = 400;
+      actionSelect = 2;
+    }
+    else if(e.key == "3"){
+      actionBarSelect.x = 400+64+1;
+      actionSelect = 3;
+    }  
+});
+
 }
 update(time, delta) {
 	const speed = 175;

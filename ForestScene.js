@@ -12,10 +12,10 @@ class ForestScene extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.image("ClassicRPG_Sheet", "../graphics/ClassicRPG_Sheet.png");
+		this.load.image("warcraft", "../graphics/warcraft.png");
     this.load.image("ActionBar", "../graphics/Action_Bar.png");
     this.load.image("ActionBarSelect", "../graphics/Action_Bar_Select.png");    
-		this.load.tilemapTiledJSON("map", "../graphics/forest_map.json");
+		this.load.tilemapTiledJSON("map", "../graphics/warcraft.json");
 
 		this.load.atlas("atlas", "../graphics/atlas.png", "../graphics/atlas.json");
 	}
@@ -23,7 +23,7 @@ class ForestScene extends Phaser.Scene {
 	create() {
 		const map = this.make.tilemap({key: "map"});
 
-		const tileset = map.addTilesetImage("ClassicRPG_Sheet", "ClassicRPG_Sheet");
+		const tileset = map.addTilesetImage("warcraft", "warcraft");
 
 		const belowLayer = map.createStaticLayer("below_player", tileset, 0, 0);
 		const worldLayer = map.createStaticLayer("player_world", tileset, 0, 0);
@@ -62,9 +62,10 @@ class ForestScene extends Phaser.Scene {
   }
 
   const camera = this.cameras.main;
+/*  camera.zoom = 1.4;*/
   camera.startFollow(player);
   camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-
+  camera.roundPixels = true;
   cursors = this.input.keyboard.createCursorKeys();
 
   // Help text that has a "fixed" position on the screen
@@ -120,7 +121,7 @@ this.input.keyboard.on('keydown', function (e) {
 
 }
 update(time, delta) {
-	const speed = 175;
+	const speed = 125;
 	const prevVelocity = player.body.velocity.clone();
 
   // Stop any previous movement from the last frame

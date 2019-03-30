@@ -3,6 +3,9 @@ let player;
 let showDebug = false;
 let actionBar;
 let actionBarSelect;
+let bars;
+let healthBarB;
+let healthBarF;
 let actionSelect = 1;
 
 class ForestScene extends Phaser.Scene {
@@ -15,6 +18,11 @@ class ForestScene extends Phaser.Scene {
 		this.load.image("warcraft", "../graphics/warcraft.png");
     this.load.image("ActionBar", "../graphics/Action_Bar.png");
     this.load.image("ActionBarSelect", "../graphics/Action_Bar_Select.png");    
+    this.load.image("ActionBarSelect", "../graphics/Action_Bar_Select.png");
+    this.load.image("Bars","../graphics/Bars.png");
+    this.load.image("HealthBarB","../graphics/BackBar.png");
+    this.load.image("HealthBarF","../graphics/FrontBar.png");
+    this.load.image("HealthBarHL","../graphics/BarHightL.png");    
 		this.load.tilemapTiledJSON("map", "../graphics/warcraft.json");
 
 		this.load.atlas("atlas", "../graphics/atlas.png", "../graphics/atlas.json");
@@ -83,7 +91,35 @@ class ForestScene extends Phaser.Scene {
   .setScrollFactor(0)
   .setDepth(30);
 
+//Draw action bar
   actionBarSelect = this.add.image(400-64, 550, 'ActionBarSelect')
+  .setScrollFactor(0)
+  .setDepth(30);
+
+//Draw health barbackground
+  healthBarB = this.add.image(648,152,'HealthBarB')
+  .setScrollFactor(0)
+  .setDepth(25)
+  .setScale(.5, 2.7)
+  .setOrigin(0,1);
+
+//Draw health
+  healthBarF = this.add.image(648,152,'HealthBarF')
+  .setScrollFactor(0)
+  .setDepth(25)
+  .setScale(.5, 2.7)
+  .setOrigin(0,1)
+  .setTint(0x00ff00);
+
+//Draw hightlight
+  healthBarB = this.add.image(648,152,'HealthBarHL')
+  .setScrollFactor(0)
+  .setDepth(25)
+  .setScale(.5, 2.7)
+  .setOrigin(0,1);
+
+//Draw bar holder place
+  bars = this.add.image(675,125,'Bars')
   .setScrollFactor(0)
   .setDepth(30);
 

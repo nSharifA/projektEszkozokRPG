@@ -6,6 +6,13 @@ let actionBarSelect;
 let bars;
 let healthBarB;
 let healthBarF;
+let healthBarHL;
+let energyBarB;
+let energyBarF;
+let energyBarHL;
+let xpBarB;
+let xpBarF;
+let xpBarHL;
 let actionSelect = 1;
 
 let misaHealth;
@@ -23,7 +30,13 @@ class ForestScene extends Phaser.Scene {
     this.load.image("Bars","../graphics/Bars.png");
     this.load.image("HealthBarB","../graphics/BackBar.png");
     this.load.image("HealthBarF","../graphics/FrontBar.png");
-    this.load.image("HealthBarHL","../graphics/BarHightL.png");    
+    this.load.image("HealthBarHL","../graphics/BarHightL.png");   
+    this.load.image("EnergyBarB","../graphics/BackBar.png");
+    this.load.image("EnergyBarF","../graphics/FrontBar.png");
+    this.load.image("EnergyBarHL","../graphics/BarHightL.png");  
+    this.load.image("XPBarB","../graphics/BackBar.png");
+    this.load.image("XPBarF","../graphics/FrontBar.png");
+    this.load.image("XPBarHL","../graphics/BarHightL.png"); 
 		this.load.tilemapTiledJSON("map", "../graphics/warcraft.json");
 
 		this.load.atlas("atlas", "../graphics/atlas.png", "../graphics/atlas.json");
@@ -115,12 +128,59 @@ class ForestScene extends Phaser.Scene {
   .setOrigin(0,1)
   .setTint(0x00ff00);
 
-//Draw hightlight
-  healthBarB = this.add.image(648,152,'HealthBarHL')
+//Draw health hightlight
+  healthBarHL = this.add.image(648,152,'HealthBarHL')
   .setScrollFactor(0)
   .setDepth(25)
   .setScale(.5, 2.7)
   .setOrigin(0,1);
+
+  //Draw energy barbackground
+  energyBarB = this.add.image(714,152,'EnergyBarB')
+  .setScrollFactor(0)
+  .setDepth(25)
+  .setScale(.9, 2.7)
+  .setOrigin(0,1);
+
+  //Draw energy
+  energyBarF = this.add.image(714,152,'EnergyBarF')
+  .setScrollFactor(0)
+  .setDepth(25)
+  .setScale(.9, 2.7)
+  .setOrigin(0,1)
+  .setTint(0xffff00);
+
+//Draw energy hightlight
+  energyBarHL = this.add.image(714,152,'EnergyBarHL')
+  .setScrollFactor(0)
+  .setDepth(25)
+  .setScale(.9, 2.7)
+  .setOrigin(0,1);
+
+  //Draw XP barbackground
+  xpBarB = this.add.image(642,12,'XPBarB')
+  .setScrollFactor(0)
+  .setDepth(25)
+  .setScale(.5, 2.7)
+  .setOrigin(0,1)
+  .setRotation(3.14/2);
+
+  //Draw XP
+  xpBarF = this.add.image(642,12,'XPBarF')
+  .setScrollFactor(0)
+  .setDepth(25)
+  .setScale(.5, 2.7)
+  .setOrigin(0,1)
+  .setRotation(3.14/2)
+  .setTint(0x00aaaa);
+
+//Draw XP hightlight
+  xpBarHL = this.add.image(642,12,'XPBarHL')
+  .setScrollFactor(0)
+  .setDepth(25)
+  .setScale(.5, 2.7)
+  .setOrigin(0,1)
+  .setRotation(3.14/2);
 
 //Draw bar holder place
   bars = this.add.image(675,125,'Bars')

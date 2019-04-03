@@ -10,12 +10,15 @@ let healthBarHL;
 let energyBarB;
 let energyBarF;
 let energyBarHL;
+let energyBarHL2;
 let xpBarB;
 let xpBarF;
 let xpBarHL;
 let actionSelect = 1;
 
 let misaHealth;
+let misaEnergy;
+let misaXP;
 
 class ForestScene extends Phaser.Scene {
 
@@ -85,6 +88,8 @@ class ForestScene extends Phaser.Scene {
 
 //Misa's starting health
   misaHealth = new HealthPoints(125);
+  misaEnergy = new EnergyPoints(360);
+  misaXP = new ExperiencePoints();
 
   const camera = this.cameras.main;
 /*  camera.zoom = 1.4;*/
@@ -142,20 +147,29 @@ class ForestScene extends Phaser.Scene {
   .setScale(.9, 2.7)
   .setOrigin(0,1);
 
+  //Draw energy hightlight
+  energyBarHL = this.add.image(714,152,'EnergyBarHL')
+  .setScrollFactor(0)
+  .setDepth(25)
+  .setScale(.9, 2.7)
+  .setOrigin(0,1);
+
   //Draw energy
   energyBarF = this.add.image(714,152,'EnergyBarF')
   .setScrollFactor(0)
   .setDepth(25)
   .setScale(.9, 2.7)
   .setOrigin(0,1)
-  .setTint(0xffff00);
 
-//Draw energy hightlight
-  energyBarHL = this.add.image(714,152,'EnergyBarHL')
+  .setTint(0xff8800);
+
+    //Draw energy hightlight2
+  energyBarHL2 = this.add.image(714,152,'EnergyBarHL')
   .setScrollFactor(0)
   .setDepth(25)
   .setScale(.9, 2.7)
-  .setOrigin(0,1);
+  .setOrigin(0,1)
+  .setTint(0xffff00);
 
   //Draw XP barbackground
   xpBarB = this.add.image(642,12,'XPBarB')
@@ -244,6 +258,15 @@ update(time, delta) {
   //Redraw Misa's health bar
   if(misaHealth.getHealth()/100*2.7 !== healthBarF.scaleY){
     healthBarF.setScale(.5, misaHealth.getHealthPercentage()/100*2.7);
+  }
+  //Redraw Misa's energy bar
+  if(misaEnergy.getEnergy()/100*2.7 !== energyBarF.scaleY){
+    energyBarF.setScale(.9, misaEnergy.getEnergyPercentage()/100*2.7);
+    energyBarHL2.setScale(.9, misaEnergy.getEnergyPercentage()/100*2.7);
+  }
+  //Redraw Misa's XP bar
+  if(misaXP.getXP()/100*2.7 !== xpBarF.scaleY){
+    xpBarF.setScale(.5, misaXP.getXPPercentage()/100*2.7);
   }
 
   // Normalize and scale the velocity so that player can't move faster along a diagonal

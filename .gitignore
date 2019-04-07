@@ -11,3 +11,9 @@ map_generator/.settings/org.eclipse.wst.common.component
 map_generator/.settings/org.eclipse.jdt.core.prefs
 map_generator/.project
 map_generator/.classpath
+map_generator/build/classes/tests/MapGeneratorMainTests.class
+map_generator/build/classes/main/PerlinNoise2D.class
+map_generator/build/classes/main/MainWindow.class
+map_generator/build/classes/main/MainPanel.class
+map_generator/build/classes/main/Main.class
+map_generator/build/classes/main/Main$1.class

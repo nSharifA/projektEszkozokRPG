@@ -1,3 +1,4 @@
+package main;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -43,12 +44,12 @@ public class PerlinNoise2D {
 		if (img == null) {
 			return null;
 		}
-		
+
 		createTilesetMap(img, tilesets);
 		calcAndCreateNoiseMatrix(noiseMatrix);
 		removeLonelyTiles(noiseMatrix);
 		BufferedImage image = pairImageToNoise(tilesets, noiseMatrix, tilesMatrixByIDs);
-		
+
 		if (generateJSONFile) {
 			try {
 				genJSONfile(tilesets, noiseMatrix, tilesMatrixByIDs);
@@ -80,7 +81,7 @@ public class PerlinNoise2D {
 
 	private BufferedImage pairImageToNoise(Map<Integer, List<BufferedImage>> tilesets, Integer[][] noiseMatrix,
 			Integer[][] tilesMatrixByIDs) {
-		BufferedImage image = new BufferedImage(XLIMIT*32, YLIMIT*32, BufferedImage.TYPE_INT_RGB);
+		BufferedImage image = new BufferedImage(XLIMIT * 32, YLIMIT * 32, BufferedImage.TYPE_INT_RGB);
 		Graphics2D createGraphics = image.createGraphics();
 
 		for (int y = 0; y < YLIMIT; y++) {
@@ -177,7 +178,8 @@ public class PerlinNoise2D {
 
 	}
 
-	private static void createTiles(JSONObject tileset, Map<Integer, List<BufferedImage>> tilesets) throws JSONException {
+	private static void createTiles(JSONObject tileset, Map<Integer, List<BufferedImage>> tilesets)
+			throws JSONException {
 		for (int y = 0; y < tilesets.get(0).size(); y++) {
 			JSONObject tile = new JSONObject();
 			tile.accumulate("id", (y * 4));
@@ -218,7 +220,8 @@ public class PerlinNoise2D {
 		}
 	}
 
-	private void createLayerJSONObject(JSONObject json, Integer[][] noiseMatrix, Integer[][] tilesMatrixByIDs) throws JSONException {
+	private void createLayerJSONObject(JSONObject json, Integer[][] noiseMatrix, Integer[][] tilesMatrixByIDs)
+			throws JSONException {
 		JSONObject below_player = new JSONObject();
 		JSONObject player_world = new JSONObject();
 		JSONObject above_player = new JSONObject();

@@ -54,7 +54,7 @@ public class MapGeneratorMainTests {
 		for (int i = 0; i < fList.length; i++) {
 		    String pes = fList[i].toString();
 		    if (pes.endsWith(".json") || pes.endsWith(".jpg")) {
-		        boolean success = (new File(pes).delete());
+		        new File(pes).delete();
 		    }
 		}
 	}

@@ -17,3 +17,8 @@ map_generator/build/classes/main/MainWindow.class
 map_generator/build/classes/main/MainPanel.class
 map_generator/build/classes/main/Main.class
 map_generator/build/classes/main/Main$1.class
+map_generator/source/main/PerlinNoise2D.class
+map_generator/source/main/MainWindow.class
+map_generator/source/main/MainPanel.class
+map_generator/source/main/Main.class
+map_generator/source/main/Main$1.class

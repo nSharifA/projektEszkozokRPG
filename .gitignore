@@ -22,3 +22,10 @@ map_generator/source/main/MainWindow.class
 map_generator/source/main/MainPanel.class
 map_generator/source/main/Main.class
 map_generator/source/main/Main$1.class
+map_generator/build/testclasses/tests/TestRunner.class
+map_generator/build/testclasses/tests/MapGeneratorMainTests.class
+map_generator/build/testclasses/main/PerlinNoise2D.class
+map_generator/build/testclasses/main/MainWindow.class
+map_generator/build/testclasses/main/MainPanel.class
+map_generator/build/testclasses/main/Main.class
+map_generator/build/testclasses/main/Main$1.class

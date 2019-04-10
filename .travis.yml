@@ -1,13 +1,10 @@
 matrix:
   include:
     - language: java
-    before_script:
-    - cd map_generator
+    before_script: cd map_generator
     script:
     - ant warcraft2_map_generator
    
-    - language: javascript
-     
 notifications:
   email:
     - n.sharif@windowslive.com

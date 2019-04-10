@@ -8,6 +8,7 @@ matrix:
       - ant build
       
     - language: javascript
+    before_script: cd game
      
 notifications:
   email:

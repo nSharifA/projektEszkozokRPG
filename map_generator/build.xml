@@ -50,7 +50,7 @@
             </manifest>
         </jar>
     </target>
-    <target name="build" depends="compile, jar, docs">
+    <target name="build" depends="compile, jar">
         <description>Main target</description>
     </target>
 </project>

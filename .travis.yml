@@ -1,0 +1,9 @@
+matrix:
+  include:
+    - language: java
+   
+    - language: javascript
+     
+notifications:
+  email:
+    - n.sharif@windowslive.com

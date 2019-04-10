@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="warcraft2_map_generator" default="main" basedir=".">
+<project name="warcraft2_map_generator" default="build" basedir=".">
     <!-- Sets variables which can later be used. -->
     <!-- The value of a property is accessed via ${} -->
     <property name="source.dir" location="source" />
@@ -31,7 +31,7 @@
         </javac>
     </target>
     <!-- Creates Javadoc -->
-    <target name="docs" depends="compile">
+    <!-- <target name="docs" depends="compile">
         <javadoc packagenames="source" sourcepath="${source.dir}" destdir="${docs.dir}">
             <!-- Define which files / directory should get included, we include all -->
             <classpath refid="build-classpath" />
@@ -39,7 +39,7 @@
                 <include name="**" />
             </fileset>
         </javadoc>
-    </target>
+    </target> -->
     <!--Creates the deployable jar file  -->
     <target name="jar" depends="compile">
         <jar destfile="${dist.dir}\warcraft2_map_generator.jar" basedir="${build.dir}">

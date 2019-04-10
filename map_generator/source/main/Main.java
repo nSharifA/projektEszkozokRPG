@@ -23,7 +23,6 @@ public class Main {
 	}
 
 	public static void runFromCommandLine(String[] args) throws IOException {
-		BufferedImage noiseImage = null;
 		int wTileCount = Integer.valueOf(args[0]);
 		int hTileCount = Integer.valueOf(args[1]);
 		int freq = Integer.valueOf(args[2]);
@@ -33,7 +32,7 @@ public class Main {
 			throw new IOException();
 		}
 		PerlinNoise2D gen = new PerlinNoise2D(wTileCount, hTileCount, freq, seed);
-		noiseImage = gen.getNoiseImage(false, true);
+		BufferedImage noiseImage = gen.getNoiseImage(false, true);
 		if (noiseImage != null) {
 			File outputfile = new File("image_seed_" + seed + "freq_" + freq + ".jpg");
 			ImageIO.write(noiseImage, "jpg", outputfile);

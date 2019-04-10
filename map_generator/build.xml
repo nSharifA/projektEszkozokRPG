@@ -7,20 +7,20 @@
     <property name="source" value="1.8"/>
     <path id="EAR Libraries.libraryclasspath"/>
     <path id="JUnit 5.libraryclasspath">
-        <pathelement location="source/tests/org.junit.jupiter.api_5.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/tests/org.junit.jupiter.engine_5.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/tests/org.junit.jupiter.migrationsupport_5.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/tests/org.junit.jupiter.params_5.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/tests/org.junit.platform.commons_1.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/tests/org.junit.platform.engine_1.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/tests/org.junit.platform.launcher_1.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/tests/org.junit.platform.runner_1.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/tests/org.junit.platform.suite.api_1.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/tests/org.junit.vintage.engine_5.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/tests/org.opentest4j_1.1.1.v20181005-1442.jar"/>
-        <pathelement location="source/tests/org.apiguardian_1.0.0.v20181005-1442.jar"/>
-        <pathelement location="source/tests/org.junit_4.12.0.v201504281640/junit.jar"/>
-        <pathelement location="source/tests/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
+        <pathelement location="source/lib/org.junit.jupiter.api_5.3.1.v20181005-1442.jar"/>
+        <pathelement location="source/lib/org.junit.jupiter.engine_5.3.1.v20181005-1442.jar"/>
+        <pathelement location="source/lib/org.junit.jupiter.migrationsupport_5.3.1.v20181005-1442.jar"/>
+        <pathelement location="source/lib/org.junit.jupiter.params_5.3.1.v20181005-1442.jar"/>
+        <pathelement location="source/lib/org.junit.platform.commons_1.3.1.v20181005-1442.jar"/>
+        <pathelement location="source/lib/org.junit.platform.engine_1.3.1.v20181005-1442.jar"/>
+        <pathelement location="source/lib/org.junit.platform.launcher_1.3.1.v20181005-1442.jar"/>
+        <pathelement location="source/lib/org.junit.platform.runner_1.3.1.v20181005-1442.jar"/>
+        <pathelement location="source/lib/org.junit.platform.suite.api_1.3.1.v20181005-1442.jar"/>
+        <pathelement location="source/lib/org.junit.vintage.engine_5.3.1.v20181005-1442.jar"/>
+        <pathelement location="source/lib/org.opentest4j_1.1.1.v20181005-1442.jar"/>
+        <pathelement location="source/lib/org.apiguardian_1.0.0.v20181005-1442.jar"/>
+        <pathelement location="source/lib/org.junit_4.12.0.v201504281640/junit.jar"/>
+        <pathelement location="source/lib/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
     </path>
     <path id="warcraft2_map_generator.classpath">
         <pathelement location="build/classes"/>

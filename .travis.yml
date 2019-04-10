@@ -1,11 +1,11 @@
 matrix:
   include:
-    - language: java
+    language: java
     before_script: cd map_generator
     script: ant warcraft2_map_generator
     after_script: cd..
 
-    - language: javascript
+    language: javascript
     before_script: cd map_generator
     after_script: cd ..
 

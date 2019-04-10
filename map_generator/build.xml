@@ -33,7 +33,7 @@
     <!-- Creates Javadoc -->
     <!-- <target name="docs" depends="compile">
         <javadoc packagenames="source" sourcepath="${source.dir}" destdir="${docs.dir}">
-            <!-- Define which files / directory should get included, we include all -->
+            Define which files / directory should get included, we include all
             <classpath refid="build-classpath" />
             <fileset dir="${source.dir}">
                 <include name="**" />

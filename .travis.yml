@@ -7,9 +7,5 @@ matrix:
     script:
       - ant build
       
-    - language: javascript
+    language: javascript
     before_script: cd game
-     
-notifications:
-  email:
-    - n.sharif@windowslive.com

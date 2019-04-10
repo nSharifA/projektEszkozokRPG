@@ -1,103 +1,56 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="build" name="warcraft2_map_generator">
-    <property environment="env"/>
-    <property name="junit.output.dir" value="junit"/>
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.8"/>
-    <property name="source" value="1.8"/>
-    <path id="EAR Libraries.libraryclasspath"/>
-    <path id="JUnit 5.libraryclasspath">
-        <pathelement location="source/lib/org.junit.jupiter.api_5.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/lib/org.junit.jupiter.engine_5.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/lib/org.junit.jupiter.migrationsupport_5.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/lib/org.junit.jupiter.params_5.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/lib/org.junit.platform.commons_1.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/lib/org.junit.platform.engine_1.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/lib/org.junit.platform.launcher_1.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/lib/org.junit.platform.runner_1.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/lib/org.junit.platform.suite.api_1.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/lib/org.junit.vintage.engine_5.3.1.v20181005-1442.jar"/>
-        <pathelement location="source/lib/org.opentest4j_1.1.1.v20181005-1442.jar"/>
-        <pathelement location="source/lib/org.apiguardian_1.0.0.v20181005-1442.jar"/>
-        <pathelement location="source/lib/org.junit_4.12.0.v201504281640/junit.jar"/>
-        <pathelement location="source/lib/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="warcraft2_map_generator" default="main" basedir=".">
+    <!-- Sets variables which can later be used. -->
+    <!-- The value of a property is accessed via ${} -->
+    <property name="source.dir" location="source" />
+    <property name="build.dir" location="bin" />
+    <property name="lib.dir" location="source/lib" />
+    <property name="dist.dir" location="build/jar" />
+    <!--<property name="docs.dir" location="build/docs" /> -->
+    <path id="build-classpath">
+        <fileset dir="${lib.dir}">
+            <include name="*.jar" />
+        </fileset>
     </path>
-    <path id="warcraft2_map_generator.classpath">
-        <pathelement location="build/classes"/>
-        <path refid="EAR Libraries.libraryclasspath"/>
-        <pathelement location="source/lib/java-json.jar"/>
-        <path refid="JUnit 5.libraryclasspath"/>
-    </path>
-    <target name="init">
-        <mkdir dir="build/classes"/>
-        <copy includeemptydirs="false" todir="build/classes">
-            <fileset dir="source">
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
+    <!-- Deletes the existing build, docs and dist directory-->
     <target name="clean">
-        <delete dir="build/classes"/>
+        <delete dir="${build.dir}" />
+        <delete dir="${docs.dir}" />
+        <delete dir="${dist.dir}" />
     </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
-    <target name="build-subprojects"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}">
-            <src path="source"/>
-            <classpath refid="warcraft2_map_generator.classpath"/>
+    <!-- Creates the  build, docs and dist directory-->
+    <target name="makedir">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${docs.dir}" />
+        <mkdir dir="${dist.dir}" />
+    </target>
+    <!-- Compiles the java code (including the usage of library for JUnit -->
+    <target name="compile" depends="clean, makedir">
+        <javac srcdir="${source.dir}" destdir="${build.dir}">
+            <classpath refid="build-classpath" />
         </javac>
     </target>
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-        <copy todir="${ant.library.dir}">
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </copy>
-        <unzip dest="${ant.library.dir}">
-            <patternset includes="jdtCompilerAdapter.jar"/>
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </unzip>
-    </target>
-    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-        <antcall target="build"/>
-    </target>
-    <target name="Main">
-        <java classname="Main" failonerror="true" fork="yes">
-            <arg line="100 100 52 2"/>
-            <classpath refid="warcraft2_map_generator.classpath"/>
-        </java>
-    </target>
-    <target name="MapGeneratorMainTests">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="tests.MapGeneratorMainTests" todir="${junit.output.dir}"/>
-            <jvmarg line="-ea"/>
-            <classpath refid="warcraft2_map_generator.classpath"/>
-        </junit>
-    </target>
-    <target name="MapGeneratorTests">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="tests.MapGeneratorTests" todir="${junit.output.dir}"/>
-            <jvmarg line="-ea"/>
-            <classpath refid="warcraft2_map_generator.classpath"/>
-        </junit>
-    </target>
-    <target name="TestRunner">
-        <java classname="tests.TestRunner" failonerror="true" fork="yes">
-            <classpath refid="warcraft2_map_generator.classpath"/>
-        </java>
-    </target>
-    <target name="junitreport">
-        <junitreport todir="${junit.output.dir}">
-            <fileset dir="${junit.output.dir}">
-                <include name="TEST-*.xml"/>
+    <!-- Creates Javadoc -->
+    <target name="docs" depends="compile">
+        <javadoc packagenames="source" sourcepath="${source.dir}" destdir="${docs.dir}">
+            <!-- Define which files / directory should get included, we include all -->
+            <classpath refid="build-classpath" />
+            <fileset dir="${source.dir}">
+                <include name="**" />
             </fileset>
-            <report format="frames" todir="${junit.output.dir}"/>
-        </junitreport>
+        </javadoc>
+    </target>
+    <!--Creates the deployable jar file  -->
+    <target name="jar" depends="compile">
+        <jar destfile="${dist.dir}\warcraft2_map_generator.jar" basedir="${build.dir}">
+            <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
+            <manifest>
+                <attribute name="Main-Class" value="main.Main" />
+                <attribute name="Build-Path" value="${build-classpath}" />
+            </manifest>
+        </jar>
+    </target>
+    <target name="main" depends="compile, jar, docs">
+        <description>Main target</description>
     </target>
 </project>

@@ -1,8 +1,10 @@
 matrix:
   include:
     - language: java
-    before_script: cd map_generator
-    script: ant warcraft2_map_generator
+    before_script:
+    - cd map_generator
+    script:
+    - ant warcraft2_map_generator
    
     - language: javascript
      

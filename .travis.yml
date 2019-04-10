@@ -1,7 +1,14 @@
-language: java
-jdk:
-  - oraclejdk8
-before_script: cd map_generator
-script:
-  - ant build
-   
+matrix:
+  include:
+    language: java
+    jdk:
+      - oraclejdk8
+    before_script: cd map_generator
+    script:
+      - ant build
+      
+    - language: javascript
+     
+notifications:
+  email:
+    - n.sharif@windowslive.com

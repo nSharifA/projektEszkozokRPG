@@ -1,11 +1,14 @@
 matrix:
   include:
-    language: java
-    jdk:
-      - oraclejdk8
+    - language: java
     before_script: cd map_generator
-    script:
-      - ant build
-      
-    language: javascript
-    before_script: cd game
+    script: ant warcraft2_map_generator
+    after_script: cd..
+
+    - language: javascript
+    before_script: cd map_generator
+    after_script: cd ..
+
+notifications:
+  email:
+    - n.sharif@windowslive.com

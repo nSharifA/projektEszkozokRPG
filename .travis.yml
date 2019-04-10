@@ -3,5 +3,5 @@ jdk:
   - oraclejdk8
 before_script: cd map_generator
 script:
-  - ant build
+  - ant warcraft2_map_generator
    

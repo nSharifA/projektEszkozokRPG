@@ -8,6 +8,6 @@
     "jshint": "^2.6.0"
   },
   "scripts": {
-    "test": "jshint main.js"
+    "test": "jshint main.js energyPoints.js experiencePoints.js ForestScene.js WelcomeScene.js"
   }
 }

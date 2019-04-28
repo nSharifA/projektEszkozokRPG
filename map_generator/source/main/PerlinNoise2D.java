@@ -310,8 +310,8 @@ public class PerlinNoise2D {
 	private void removeLonelyHorizontalTiles(Integer[][] noiseMatrix) {
 		for (int y = 0; y < YLIMIT + 2; y++) {
 			for (int x = 3; x < XLIMIT + 2; x++) {
-				if (noiseMatrix[x - 3][y] == noiseMatrix[x][y]) {
-					if (noiseMatrix[x][y] != noiseMatrix[x - 1][y] || noiseMatrix[x][y] != noiseMatrix[x - 2][y]) {
+				if (noiseMatrix[x - 3][y].equals(noiseMatrix[x][y])) {
+					if (!noiseMatrix[x][y].equals(noiseMatrix[x - 1][y]) || !noiseMatrix[x][y].equals(noiseMatrix[x - 2][y])) {
 						noiseMatrix[x - 1][y] = noiseMatrix[x][y];
 						noiseMatrix[x - 2][y] = noiseMatrix[x][y];
 					}
@@ -323,8 +323,8 @@ public class PerlinNoise2D {
 	private void removeLonelyVerticalTiles(Integer[][] noiseMatrix) {
 		for (int y = 0; y < YLIMIT + 2; y++) {
 			for (int x = 3; x < XLIMIT + 2; x++) {
-				if (noiseMatrix[y][x - 3] == noiseMatrix[y][x]) {
-					if (noiseMatrix[y][x] != noiseMatrix[y][x - 1] || noiseMatrix[y][x] != noiseMatrix[y][x - 2]) {
+				if (noiseMatrix[y][x - 3].equals(noiseMatrix[y][x])) {
+					if (!noiseMatrix[y][x].equals(noiseMatrix[y][x - 1]) || !noiseMatrix[y][x].equals(noiseMatrix[y][x - 2])) {
 						noiseMatrix[y][x - 1] = noiseMatrix[y][x];
 						noiseMatrix[y][x - 2] = noiseMatrix[y][x];
 					}

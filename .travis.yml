@@ -3,13 +3,11 @@ matrix:
     language: java
     before_script: cd map_generator
     script: ant build
-    after_script: cd..
 
     language: node_js
+    before_script: cd game
     node_js:
       - "node"
-    before_script: cd game
-    after_script: cd ..
 
 notifications:
   email:

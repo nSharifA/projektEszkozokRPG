@@ -8,22 +8,22 @@
             outputFile="bcel-fb.xml" >
       <!--  <auxClasspath path="${basedir}/lib/Regex.jar" />-->
         <sourcePath path="${basedir}/source" />
-        <class location="${basedir}/source/lib/bcel.jar" />
+        <class location="${basedir}/build/jar/warcraft2_map_generator.jar" />
     </findbugs>
     </target>
     <!-- Sets variables which can later be used. -->
     <!-- The value of a property is accessed via ${} -->
-    <property name="source.dir" location="source" />
+    <property name="source.dir" location="source/main" />
     <property name="build.dir" location="bin" />
     <property name="lib.dir" location="source/lib" />
     <property name="dist.dir" location="build/jar" />
     <!--<property name="docs.dir" location="build/docs" /> -->
     <path id="build-classpath">
         <fileset dir="${lib.dir}">
-            <include name="*.jar" />
+             <include name="*.jar" />
         </fileset>
     </path>
-    <!-- Deletes the existing build, docs and dist directory-->
+   <!-- <Deletes the existing build, docs and dist directory-->
     <target name="clean">
         <delete dir="${build.dir}" />
         <delete dir="${docs.dir}" />
@@ -54,14 +54,14 @@
     <!--Creates the deployable jar file  -->
     <target name="jar" depends="compile">
         <jar destfile="${dist.dir}\warcraft2_map_generator.jar" basedir="${build.dir}">
-            <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
+            <zipgroupfileset dir="${lib.dir}" includes="java-json.jar" />
             <manifest>
                 <attribute name="Main-Class" value="main.Main" />
                 <attribute name="Build-Path" value="${build-classpath}" />
             </manifest>
         </jar>
     </target>
-    <target name="build" depends="findbugs, compile, jar">
+    <target name="build" depends="compile, jar, findbugs">
         <description>Main target</description>
     </target>
 </project>

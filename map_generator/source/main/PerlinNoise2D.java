@@ -17,6 +17,11 @@ import javax.imageio.ImageIO;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Maga a térkép generátor
+ *
+ * @author sharif
+ */
 public class PerlinNoise2D {
 
 	double time = 0;
@@ -60,6 +65,12 @@ public class PerlinNoise2D {
 		return image;
 	}
 
+	/**
+	 * Betölti a warcraft.png-t. Amik a tile-okat tartamazzák.
+	 *
+	 * @return BufferedImage betöltött kép, vagy ha az nincs akkor null.
+	 * @author sharif
+	 */
 	private BufferedImage loadImage() {
 		try {
 			return ImageIO.read(new File("warcraft.png"));
@@ -129,6 +140,11 @@ public class PerlinNoise2D {
 		}
 	}
 
+	/**
+	 * Létrehozza a JSON filet és elmenti.
+	 *
+	 * @author sharif
+	 */
 	private void genJSONfile(Map<Integer, List<BufferedImage>> tilesets, Integer[][] noiseMatrix,
 			Integer[][] tilesMatrixByIDs) throws JSONException {
 		JSONObject json = new JSONObject();
@@ -159,6 +175,11 @@ public class PerlinNoise2D {
 		}
 	}
 
+	/**
+	 * Létrehozza a JSON TileSet Objektumokat.
+	 *
+	 * @author sharif
+	 */
 	private void createTileSets(JSONObject json, Map<Integer, List<BufferedImage>> tilesets) throws JSONException {
 		JSONObject tileset = new JSONObject();
 		json.append("tilesets", tileset);
@@ -177,7 +198,12 @@ public class PerlinNoise2D {
 		createTiles(tileset, tilesets);
 
 	}
-
+	
+	/**
+	 * Létrehozza a JSON Tile Objektumokat.
+	 *
+	 * @author sharif
+	 */
 	private static void createTiles(JSONObject tileset, Map<Integer, List<BufferedImage>> tilesets)
 			throws JSONException {
 		for (int y = 0; y < tilesets.get(0).size(); y++) {
@@ -219,7 +245,12 @@ public class PerlinNoise2D {
 			tileset.append("tiles", tile);
 		}
 	}
-
+	
+	/**
+	 * Létrehozza a JSON Layer Objektumokat.
+	 *
+	 * @author sharif
+	 */
 	private void createLayerJSONObject(JSONObject json, Integer[][] noiseMatrix, Integer[][] tilesMatrixByIDs)
 			throws JSONException {
 		JSONObject below_player = new JSONObject();
@@ -283,7 +314,12 @@ public class PerlinNoise2D {
 			}
 		}
 	}
-
+	
+	/**
+	 * Létrehozza a JSONObjektumokat.
+	 *
+	 * @author sharif
+	 */
 	private void createObjects(JSONObject drawMode, Integer[][] tilesMatrixByIDs) throws JSONException {
 		JSONObject spawnPoint = new JSONObject();
 		drawMode.append("objects", spawnPoint);
@@ -307,6 +343,11 @@ public class PerlinNoise2D {
 		spawnPoint.accumulate("y", (32 * randY) - 16);
 	}
 
+	/**
+	 * Eltünteni azokat a koordináatértékeket horizontálisan, amikhez nem létezik tileImage
+	 *
+	 * @author sharif
+	 */
 	private void removeLonelyHorizontalTiles(Integer[][] noiseMatrix) {
 		for (int y = 0; y < YLIMIT + 2; y++) {
 			for (int x = 3; x < XLIMIT + 2; x++) {
@@ -319,7 +360,12 @@ public class PerlinNoise2D {
 			}
 		}
 	}
-
+	
+	/**
+	 * Eltünteni azokat a koordináatértékeket vertikálisan, amikhez nem létezik tileImage
+	 *
+	 * @author sharif
+	 */
 	private void removeLonelyVerticalTiles(Integer[][] noiseMatrix) {
 		for (int y = 0; y < YLIMIT + 2; y++) {
 			for (int x = 3; x < XLIMIT + 2; x++) {
@@ -332,7 +378,13 @@ public class PerlinNoise2D {
 			}
 		}
 	}
-
+	
+	/**
+	 * Megkeresi a megfelelő tile image-t az adott koordinátaértékhez.
+	 *
+	 * @return tile image
+	 * @author sharif
+	 */
 	private BufferedImage getImage(int y, int x, int key, int i, boolean less,
 			Map<Integer, List<BufferedImage>> tilesets, Integer[][] noiseMatrix, Integer[][] tilesMatrixByIDs) {
 		BufferedImage subimage = null;
@@ -397,7 +449,15 @@ public class PerlinNoise2D {
 		tilesMatrixByIDs[x - 1][y - 1] = key + (value * 4) + 1;
 		return subimage;
 	}
-
+	
+	/**
+	 * A zajgenerátor minden számpárhoz hozzárendel egy értéket.
+	 *
+	 * @param x koordináat
+	 * @param y koordináat
+	 * @return számárhoz tartozó érték
+	 * @author sharif
+	 */
 	private Double calcNoise(int x, int y) {
 		double dx = (double) x / (20 * 32);
 		double dy = (double) y / (20 * 32);

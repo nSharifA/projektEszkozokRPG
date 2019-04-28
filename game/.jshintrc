@@ -22,6 +22,6 @@
   "shadow"        : false,
   "supernew"      : false,
   "sub"           : true,
-  "undef"         : true,
+  "undef"         : false,
   "white"         : true
 }

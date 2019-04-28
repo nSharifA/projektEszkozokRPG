@@ -12,6 +12,7 @@ matrix:
        - npm install --save-dev jshint
       node_js:
         - "node"
+      after_success: echo "jshint - no errors found"
 
 notifications:
   email:

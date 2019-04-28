@@ -219,15 +219,15 @@ class ForestScene extends Phaser.Scene {
 });
 
 this.input.keyboard.on('keydown', function (e) {
-    if(e.key == "1"){
+    if(e.key === "1"){
       actionBarSelect.x = 400-64;
       actionSelect = 1;
     }
-    else if(e.key == "2"){
+    else if(e.key === "2"){
       actionBarSelect.x = 400;
       actionSelect = 2;
     }
-    else if(e.key == "3"){
+    else if(e.key === "3"){
       actionBarSelect.x = 400+64+1;
       actionSelect = 3;
     }  
@@ -238,57 +238,62 @@ update(time, delta) {
 	const speed = 125;
 	const prevVelocity = player.body.velocity.clone();
 
-  // Stop any previous movement from the last frame
-  player.body.setVelocity(0);
+	// Stop any previous movement from the last frame
+	player.body.setVelocity(0);
 
-  // Horizontal movement
-  if (cursors.left.isDown) {
-  	player.body.setVelocityX(-speed);
-  } else if (cursors.right.isDown) {
-  	player.body.setVelocityX(speed);
-  }
+	// Horizontal movement
+	if (cursors.left.isDown) {
+		player.body.setVelocityX(-speed);
+	} else if (cursors.right.isDown) {
+		player.body.setVelocityX(speed);
+	}
 
-  // Vertical movement
-  if (cursors.up.isDown) {
-  	player.body.setVelocityY(-speed);
-  } else if (cursors.down.isDown) {
-  	player.body.setVelocityY(speed);
-  }
+	// Vertical movement
+	if (cursors.up.isDown) {
+		player.body.setVelocityY(-speed);
+	} else if (cursors.down.isDown) {
+		player.body.setVelocityY(speed);
+	}
 
-  //Redraw Misa's health bar
-  if(misaHealth.getHealth()/100*2.7 !== healthBarF.scaleY){
-    healthBarF.setScale(0.5, misaHealth.getHealthPercentage()/100*2.7);
-  }
-  //Redraw Misa's energy bar
-  if(misaEnergy.getEnergy()/100*2.7 !== energyBarF.scaleY){
-    energyBarF.setScale(0.9, misaEnergy.getEnergyPercentage()/100*2.7);
-    energyBarHL2.setScale(0.9, misaEnergy.getEnergyPercentage()/100*2.7);
-  }
-  //Redraw Misa's XP bar
-  if(misaXP.getXP()/100*2.7 !== xpBarF.scaleY){
-    xpBarF.setScale(0.5, misaXP.getXPPercentage()/100*2.7);
-  }
+	//Redraw Misa's health bar
+	if(misaHealth.getHealth()/100*2.7 !== healthBarF.scaleY){
+		healthBarF.setScale(0.5, misaHealth.getHealthPercentage()/100*2.7);
+	}
+	//Redraw Misa's energy bar
+	if(misaEnergy.getEnergy()/100*2.7 !== energyBarF.scaleY){
+		energyBarF.setScale(0.9, misaEnergy.getEnergyPercentage()/100*2.7);
+		energyBarHL2.setScale(0.9, misaEnergy.getEnergyPercentage()/100*2.7);
+	}
+	//Redraw Misa's XP bar
+	if(misaXP.getXP()/100*2.7 !== xpBarF.scaleY){
+		xpBarF.setScale(0.5, misaXP.getXPPercentage()/100*2.7);
+	}
 
-  // Normalize and scale the velocity so that player can't move faster along a diagonal
-  player.body.velocity.normalize().scale(speed);
+	// Normalize and scale the velocity so that player can't move faster along a diagonal
+	player.body.velocity.normalize().scale(speed);
 
-  // Update the animation last and give left/right animations precedence over up/down animations
-  if (cursors.left.isDown) {
-  	player.anims.play("misa-left-walk", true);
-  } else if (cursors.right.isDown) {
-  	player.anims.play("misa-right-walk", true);
-  } else if (cursors.up.isDown) {
-  	player.anims.play("misa-back-walk", true);
-  } else if (cursors.down.isDown) {
-  	player.anims.play("misa-front-walk", true);
-  } else {
-  	player.anims.stop();
+	// Update the animation last and give left/right animations precedence over up/down animations
+	if (cursors.left.isDown) {
+		player.anims.play("misa-left-walk", true);
+	} else if (cursors.right.isDown) {
+		player.anims.play("misa-right-walk", true);
+	} else if (cursors.up.isDown) {
+		player.anims.play("misa-back-walk", true);
+	} else if (cursors.down.isDown) {
+		player.anims.play("misa-front-walk", true);
+	} else {
+		player.anims.stop();
 
-    // If we were moving, pick and idle frame to use
-    if (prevVelocity.x < 0) player.setTexture("atlas", "misa-left");
-    else if (prevVelocity.x > 0) player.setTexture("atlas", "misa-right");
-    else if (prevVelocity.y < 0) player.setTexture("atlas", "misa-back");
-    else if (prevVelocity.y > 0) player.setTexture("atlas", "misa-front");
-}
+	// If we were moving, pick and idle frame to use
+	if (prevVelocity.x < 0) {
+		player.setTexture("atlas", "misa-left");	
+	} else if (prevVelocity.x > 0) {
+		player.setTexture("atlas", "misa-right");
+	} else if (prevVelocity.y < 0) {
+		player.setTexture("atlas", "misa-back");
+	} else if (prevVelocity.y > 0) {
+		player.setTexture("atlas", "misa-front");
+	} 
+}	
 }
 }

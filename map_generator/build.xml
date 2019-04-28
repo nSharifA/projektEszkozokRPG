@@ -17,6 +17,7 @@
     <property name="build.dir" location="bin" />
     <property name="lib.dir" location="source/lib" />
     <property name="dist.dir" location="build/jar" />
+    <property name="docs.dir" location="build/docs" />
     <!--<property name="docs.dir" location="build/docs" /> -->
     <path id="build-classpath">
         <fileset dir="${lib.dir}">
@@ -42,15 +43,15 @@
         </javac>
     </target>
     <!-- Creates Javadoc -->
-    <!-- <target name="docs" depends="compile">
+    <target name="docs" depends="compile">
         <javadoc packagenames="source" sourcepath="${source.dir}" destdir="${docs.dir}">
-            Define which files / directory should get included, we include all
+            <!--Define which files / directory should get included, we include all-->
             <classpath refid="build-classpath" />
             <fileset dir="${source.dir}">
                 <include name="**" />
             </fileset>
         </javadoc>
-    </target> -->
+    </target> 
     <!--Creates the deployable jar file  -->
     <target name="jar" depends="compile">
         <jar destfile="${dist.dir}\warcraft2_map_generator.jar" basedir="${build.dir}">
@@ -61,7 +62,7 @@
             </manifest>
         </jar>
     </target>
-    <target name="build" depends="compile, jar, findbugs">
+    <target name="build" depends="compile, jar, docs, findbugs">
         <description>Main target</description>
     </target>
 </project>

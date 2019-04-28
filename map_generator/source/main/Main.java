@@ -12,10 +12,12 @@ public class Main {
 	 * Paraméterek megadásával commandline-ból is futtatható, egyébként default
 	 * Map-ot generál Amit vizuálisan megjelenít Swingben.
 	 *
-	 * @param szélesség    tile darabszámmal megadva (int)
-	 * @param magasság     tile darabszámmal megadva (int)
-	 * @param részletesség (int)
-	 * @param seed         a tile generáláshoz (int)
+	 * @param args    
+	 *	szélesség tile darabszámmal megadva (int)
+	 *	tile darabszámmal megadva (int)
+	 *  részletesség (int)
+	 *  seed a tile generáláshoz (int)
+	 * @throws IOException hibás input esetén.
 	 * @author sharif
 	 */
 	public static void main(String[] args) throws IOException {
@@ -33,9 +35,14 @@ public class Main {
 	}
 
 	/**
-	 * Ellenőrzi, hogy mefelelőek a paraméterek, majd ezek által generált képet
-	 * elmennti.
+	 * command line-ból futtatható kód.
 	 *
+	 * @param args    
+	 *	szélesség tile darabszámmal megadva (int)
+	 *	tile darabszámmal megadva (int)
+	 *  részletesség (int)
+	 *  seed a tile generáláshoz (int)
+	 * @throws IOException hibás input esetén.
 	 * @author sharif
 	 */
 	public static void runFromCommandLine(String[] args) throws IOException {

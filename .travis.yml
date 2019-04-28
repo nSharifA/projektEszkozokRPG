@@ -1,11 +1,11 @@
 matrix:
   include:
-    - stage: java
+    - stage: "java"
       language: java
       before_script: cd map_generator
       script: ant build
 
-    - stage: js
+    - stage: "js"
       language: node_js
       before_script: cd game
       node_js:

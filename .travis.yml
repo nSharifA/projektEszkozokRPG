@@ -5,7 +5,9 @@ matrix:
     script: ant build
     after_script: cd..
 
-    language: javascript
+    language: node_js
+    node_js:
+      - "node"
     before_script: cd map_generator
     after_script: cd ..
 

@@ -122,14 +122,14 @@ class ForestScene extends Phaser.Scene {
   healthBarB = this.add.image(648,152,'HealthBarB')
   .setScrollFactor(0)
   .setDepth(25)
-  .setScale(.5, 2.7)
+  .setScale(0.5, 2.7)
   .setOrigin(0,1);
 
 //Draw health
   healthBarF = this.add.image(648,152,'HealthBarF')
   .setScrollFactor(0)
   .setDepth(25)
-  .setScale(.5, 2.7)
+  .setScale(0.5, 2.7)
   .setOrigin(0,1)
   .setTint(0x00ff00);
 
@@ -144,21 +144,21 @@ class ForestScene extends Phaser.Scene {
   energyBarB = this.add.image(714,152,'EnergyBarB')
   .setScrollFactor(0)
   .setDepth(25)
-  .setScale(.9, 2.7)
+  .setScale(0.9, 2.7)
   .setOrigin(0,1);
 
   //Draw energy hightlight
   energyBarHL = this.add.image(714,152,'EnergyBarHL')
   .setScrollFactor(0)
   .setDepth(25)
-  .setScale(.9, 2.7)
+  .setScale(0.9, 2.7)
   .setOrigin(0,1);
 
   //Draw energy
   energyBarF = this.add.image(714,152,'EnergyBarF')
   .setScrollFactor(0)
   .setDepth(25)
-  .setScale(.9, 2.7)
+  .setScale(0.9, 2.7)
   .setOrigin(0,1)
 
   .setTint(0xff8800);
@@ -167,7 +167,7 @@ class ForestScene extends Phaser.Scene {
   energyBarHL2 = this.add.image(714,152,'EnergyBarHL')
   .setScrollFactor(0)
   .setDepth(25)
-  .setScale(.9, 2.7)
+  .setScale(0.9, 2.7)
   .setOrigin(0,1)
   .setTint(0xffff00);
 
@@ -175,7 +175,7 @@ class ForestScene extends Phaser.Scene {
   xpBarB = this.add.image(642,12,'XPBarB')
   .setScrollFactor(0)
   .setDepth(25)
-  .setScale(.5, 2.7)
+  .setScale(0.5, 2.7)
   .setOrigin(0,1)
   .setRotation(3.14/2);
 
@@ -183,7 +183,7 @@ class ForestScene extends Phaser.Scene {
   xpBarF = this.add.image(642,12,'XPBarF')
   .setScrollFactor(0)
   .setDepth(25)
-  .setScale(.5, 2.7)
+  .setScale(0.5, 2.7)
   .setOrigin(0,1)
   .setRotation(3.14/2)
   .setTint(0x00aaaa);
@@ -192,7 +192,7 @@ class ForestScene extends Phaser.Scene {
   xpBarHL = this.add.image(642,12,'XPBarHL')
   .setScrollFactor(0)
   .setDepth(25)
-  .setScale(.5, 2.7)
+  .setScale(0.5, 2.7)
   .setOrigin(0,1)
   .setRotation(3.14/2);
 
@@ -257,16 +257,16 @@ update(time, delta) {
 
   //Redraw Misa's health bar
   if(misaHealth.getHealth()/100*2.7 !== healthBarF.scaleY){
-    healthBarF.setScale(.5, misaHealth.getHealthPercentage()/100*2.7);
+    healthBarF.setScale(0.5, misaHealth.getHealthPercentage()/100*2.7);
   }
   //Redraw Misa's energy bar
   if(misaEnergy.getEnergy()/100*2.7 !== energyBarF.scaleY){
-    energyBarF.setScale(.9, misaEnergy.getEnergyPercentage()/100*2.7);
-    energyBarHL2.setScale(.9, misaEnergy.getEnergyPercentage()/100*2.7);
+    energyBarF.setScale(0.9, misaEnergy.getEnergyPercentage()/100*2.7);
+    energyBarHL2.setScale(0.9, misaEnergy.getEnergyPercentage()/100*2.7);
   }
   //Redraw Misa's XP bar
   if(misaXP.getXP()/100*2.7 !== xpBarF.scaleY){
-    xpBarF.setScale(.5, misaXP.getXPPercentage()/100*2.7);
+    xpBarF.setScale(0.5, misaXP.getXPPercentage()/100*2.7);
   }
 
   // Normalize and scale the velocity so that player can't move faster along a diagonal

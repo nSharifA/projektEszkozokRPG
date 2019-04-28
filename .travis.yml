@@ -7,7 +7,9 @@ matrix:
 
     - stage: "js"
       language: node_js
-      before_script: cd game
+      before_script:
+       - cd game
+       - npm install --save-dev jshint
       node_js:
         - "node"
 

@@ -8,7 +8,7 @@ matrix:
     language: node_js
     node_js:
       - "node"
-    before_script: cd map_generator
+    before_script: cd game
     after_script: cd ..
 
 notifications:

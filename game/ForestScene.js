@@ -137,7 +137,7 @@ class ForestScene extends Phaser.Scene {
   healthBarHL = this.add.image(648,152,'HealthBarHL')
   .setScrollFactor(0)
   .setDepth(25)
-  .setScale(.5, 2.7)
+  .setScale(0.5, 2.7)
   .setOrigin(0,1);
 
   //Draw energy barbackground

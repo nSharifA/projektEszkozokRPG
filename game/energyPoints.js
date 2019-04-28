@@ -16,6 +16,8 @@ function EnergyPoints(maxEnergy){
 
     this.addEnergy = function(add){
         this.energy = this.energy + add;
-        if(this.energy > this.maxEnergy) this.energy = maxEnergy;
+        if(this.energy > this.maxEnergy) {
+            this.energy = maxEnergy;
+        }
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="warcraft2_map_generator" default="build" basedir=".">
-    <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
+    <taskdef name="findbugs" classpath="source/lib" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
     <property name="findbugs.home" value="source/lib" />
     <target name="findbugs" depends="jar">
         <findbugs home="${findbugs.home}"

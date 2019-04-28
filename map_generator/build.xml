@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="warcraft2_map_generator" default="build" basedir=".">
+    <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
+    <property name="findbugs.home" value="source/lib" />
+    <target name="findbugs" depends="jar">
+        <findbugs home="${findbugs.home}"
+            output="xml"
+            outputFile="bcel-fb.xml" >
+      <!--  <auxClasspath path="${basedir}/lib/Regex.jar" />-->
+        <sourcePath path="${basedir}/source" />
+        <class location="${basedir}/source/lib/bcel.jar" />
+    </findbugs>
+    </target>
     <!-- Sets variables which can later be used. -->
     <!-- The value of a property is accessed via ${} -->
     <property name="source.dir" location="source" />

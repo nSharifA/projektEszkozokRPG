@@ -5,7 +5,7 @@
     <target name="findbugs" depends="jar">
         <findbugs home="${findbugs.home}"
             output="xml"
-            outputFile="bcel-fb.xml" >
+            outputFile="warrning.xml" >
       <!--  <auxClasspath path="${basedir}/lib/Regex.jar" />-->
         <sourcePath path="${basedir}/source" />
         <class location="${basedir}/build/jar/warcraft2_map_generator.jar" />

@@ -8,10 +8,20 @@ import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 
 public class Main {
+	/**
+	 * Paraméterek megadásával commandline-ból is futtatható, egyébként default
+	 * Map-ot generál Amit vizuálisan megjelenít Swingben.
+	 *
+	 * @param szélesség    tile darabszámmal megadva (int)
+	 * @param magasság     tile darabszámmal megadva (int)
+	 * @param részletesség (int)
+	 * @param seed         a tile generáláshoz (int)
+	 * @author sharif
+	 */
 	public static void main(String[] args) throws IOException {
 		if (args.length == 4) {
 			runFromCommandLine(args);
-		} else if( args.length == 0 ){
+		} else if (args.length == 0) {
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					new MainWindow();
@@ -22,6 +32,12 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Ellenőrzi, hogy mefelelőek a paraméterek, majd ezek által generált képet
+	 * elmennti.
+	 *
+	 * @author sharif
+	 */
 	public static void runFromCommandLine(String[] args) throws IOException {
 		Integer wTileCount = Integer.valueOf(args[0]);
 		Integer hTileCount = Integer.valueOf(args[1]);

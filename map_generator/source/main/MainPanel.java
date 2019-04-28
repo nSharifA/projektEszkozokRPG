@@ -1,12 +1,16 @@
 package main;
+
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+/**
+ * szimpla panel, ami a kép megjelenítéséhez szükséges.
+ *
+ * @author sharif
+ */
 public class MainPanel extends JPanel {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private PerlinNoise2D perlinNoise;
 

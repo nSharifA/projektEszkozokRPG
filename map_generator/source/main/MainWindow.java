@@ -1,10 +1,13 @@
 package main;
+
 import javax.swing.JFrame;
 
+/**
+ * szimpla Window, ami a kép megjelenítéséhez szükséges.
+ *
+ * @author sharif
+ */
 public class MainWindow extends JFrame {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 1400;
 	public static final int HEIGHT = 1000;

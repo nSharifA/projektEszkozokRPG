@@ -1,6 +1,6 @@
 function EnergyPoints(maxEnergy){
     this.maxEnergy = maxEnergy;
-    this.energy = this.maxEnergy/2;
+    this.energy = this.maxEnergy;
 
     this.getEnergy = function(){
         return this.energy;

@@ -1,5 +1,15 @@
 let cursors;
 let player;
+let zombie1;
+let zombie2;
+let zombie3;
+let zombie4;
+let zombie5;
+let zombie6;
+let zombie7;
+let zombie8;
+let zombie9;
+let zombie0;
 let showDebug = false;
 let actionBar;
 let actionBarSelect;
@@ -43,6 +53,7 @@ class ForestScene extends Phaser.Scene {
 		this.load.tilemapTiledJSON("map", "../graphics/warcraft.json");
 
 		this.load.atlas("atlas", "../graphics/atlas.png", "../graphics/atlas.json");
+		this.load.atlas("atlas_z", "../graphics/atlas_z.png", "../graphics/atlas.json");
 	}
 
 	create() {
@@ -64,8 +75,33 @@ class ForestScene extends Phaser.Scene {
   .setSize(30, 40)
   .setOffset(0, 24);
 
+  this.setZombie = function(zombie){
+    var spawnPoints = new SpawnPoints();
+    var r = Math.floor(Math.random() * 30);
+    this.zombie = this.physics.add
+    .sprite(spawnPoints.getSpawnPoint(r).x, spawnPoints.getSpawnPoint(r).y, "atlas_z", "misa-front")
+    .setSize(30, 40)
+    .setOffset(0, 24);
+    this.physics.add.collider(this.zombie, worldLayer);
+    this.physics.add.collider(this.zombie, player);
+    console.log("x:"+spawnPoints.getSpawnPoint(r).x+", Y:"+ spawnPoints.getSpawnPoint(r).y);
+    return this.zombie;
+  }
+
+  zombie0 = this.setZombie(zombie0);
+  zombie1 = this.setZombie(zombie1);
+  zombie2 = this.setZombie(zombie2);
+  zombie3 = this.setZombie(zombie3);
+  zombie4 = this.setZombie(zombie4);
+  zombie5 = this.setZombie(zombie5);
+  zombie6 = this.setZombie(zombie6);
+  zombie7 = this.setZombie(zombie7);
+  zombie8 = this.setZombie(zombie8);
+  zombie9 = this.setZombie(zombie9);
+
   // Watch the player and worldLayer for collisions, for the duration of the scene:
   this.physics.add.collider(player, worldLayer);
+  
 
   // Create the player's walking animations from the texture atlas. These are stored in the global
   // animation manager so any sprite can access them.
@@ -293,7 +329,31 @@ update(time, delta) {
 		player.setTexture("atlas", "misa-back");
 	} else if (prevVelocity.y > 0) {
 		player.setTexture("atlas", "misa-front");
-	} 
-}	
+	}
+}
+this.setZombieVelocity = function(z){
+    const zombieVelocity = z.body.velocity.clone();
+    z.body.setVelocity(0);
+    if (zombieVelocity.x < 0) {
+		  z.setTexture("atlas_z", "misa-left");	
+	  } else if (zombieVelocity.x > 0) {
+		  z.setTexture("atlas_z", "misa-right");
+	  } else if (zombieVelocity.y < 0) {
+		  z.setTexture("atlas_z", "misa-back");
+	  }else if (zombieVelocity.y > 0) {
+		  z.setTexture("atlas_z", "misa-front");
+	  }
+    return z;
+  } 
+  zombie0 = this.setZombieVelocity(zombie0);
+  zombie1 = this.setZombieVelocity(zombie1);
+  zombie2 = this.setZombieVelocity(zombie2);
+  zombie3 = this.setZombieVelocity(zombie3);
+  zombie4 = this.setZombieVelocity(zombie4);
+  zombie5 = this.setZombieVelocity(zombie5);
+  zombie6 = this.setZombieVelocity(zombie6);
+  zombie7 = this.setZombieVelocity(zombie7);
+  zombie8 = this.setZombieVelocity(zombie8);
+  zombie9 = this.setZombieVelocity(zombie9);
 }
 }

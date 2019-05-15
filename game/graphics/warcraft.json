@@ -106,7 +106,10 @@
           "id": 48
         },
         {
-          "id": 1
+          "id": 1,
+		  "properties": [{
+              "name": "collides", "type": "bool", "value": true
+            }]
         },
         {
           "id": 5,

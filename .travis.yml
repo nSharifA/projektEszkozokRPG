@@ -1,6 +1,7 @@
 matrix:
   include:
     - stage: "java"
+      install: true
       language: java
       before_script: cd map_generator
       script: ant build

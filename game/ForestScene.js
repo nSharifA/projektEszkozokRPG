@@ -400,6 +400,7 @@ this.setZombieVelocity = function(z){
       z.destination--;
     }
   }
+  
 
   this.zombieBehavior(zombie0);
   this.zombieBehavior(zombie1);

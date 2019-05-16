@@ -10,6 +10,7 @@ let zombie7;
 let zombie8;
 let zombie9;
 let zombie0;
+let zombieTemp; //temp
 let showDebug = false;
 let actionBar;
 let actionBarSelect;
@@ -53,7 +54,7 @@ class ForestScene extends Phaser.Scene {
 		this.load.tilemapTiledJSON("map", "../graphics/warcraft.json");
 
 		this.load.atlas("atlas", "../graphics/atlas.png", "../graphics/atlas.json");
-		this.load.atlas("atlas_z", "../graphics/atlas_z.png", "../graphics/atlas.json");
+		this.load.atlas("atlas_z", "../graphics/atlas_z.png", "../graphics/atlas_z.json");
 	}
 
 	create() {
@@ -79,7 +80,7 @@ class ForestScene extends Phaser.Scene {
     var spawnPoints = new SpawnPoints();
     var r = Math.floor(Math.random() * 30);
     this.zombie = this.physics.add
-    .sprite(spawnPoints.getSpawnPoint(r).x, spawnPoints.getSpawnPoint(r).y, "atlas_z", "misa-front")
+    .sprite(spawnPoints.getSpawnPoint(r).x, spawnPoints.getSpawnPoint(r).y, "atlas_z", "zmisa-front")
     .setSize(30, 40)
     .setOffset(0, 24);
     this.physics.add.collider(this.zombie, worldLayer);
@@ -99,28 +100,44 @@ class ForestScene extends Phaser.Scene {
   zombie8 = this.setZombie(zombie8);
   zombie9 = this.setZombie(zombie9);
 
+  /*zombieTemp = this.physics.add
+    .sprite(spawnPoint.x-50, spawnPoint.y, "atlas_z", "zmisa-front")
+    .setSize(30, 40)
+    .setOffset(0, 24);
+  this.physics.add.collider(zombieTemp, worldLayer);
+  this.physics.add.collider(zombieTemp, player);
+
+  zombieTemp.destination =  Math.floor(Math.random() * 30);*/
+
   // Watch the player and worldLayer for collisions, for the duration of the scene:
   this.physics.add.collider(player, worldLayer);
   
 
   // Create the player's walking animations from the texture atlas. These are stored in the global
   // animation manager so any sprite can access them.
-  const anims = this.anims;
-  var list = ["left", "right", "front", "back"];
-  for (var i = 0; i < 4; ++i) {
-    var temp = "misa-" + list[i] + "-walk";
-    anims.create({
-      key: temp,
-      frames: anims.generateFrameNames("atlas", {
-        prefix: temp + ".",
-        start: 0,
-        end: 3,
-        zeroPad: 3
-      }),
-      frameRate: 10,
-      repeat: -1
-    });
+
+  this.setMisaAnim = function(anim, atlas, misa){
+    var list = ["left", "right", "front", "back"];
+    for (var i = 0; i < 4; ++i) {
+      var temp = misa + list[i] + "-walk";
+      anim.create({
+        key: temp,
+        frames: anim.generateFrameNames(atlas, {
+          prefix: temp + ".",
+          start: 0,
+          end: 3,
+          zeroPad: 3
+        }),
+        frameRate: 10,
+        repeat: -1
+      });
+    }
   }
+
+  const anims = this.anims;
+  this.setMisaAnim(anims, "atlas", "misa-");
+  this.setMisaAnim(anims, "atlas_z", "zmisa-");
+
 
 //Misa's starting health
   misaHealth = new HealthPoints(125);
@@ -300,6 +317,7 @@ update(time, delta) {
 		energyBarF.setScale(0.9, misaEnergy.getEnergyPercentage()/100*2.7);
 		energyBarHL2.setScale(0.9, misaEnergy.getEnergyPercentage()/100*2.7);
 	}
+  misaEnergy.damageEnergy(0.02);
 	//Redraw Misa's XP bar
 	if(misaXP.getXP()/100*2.7 !== xpBarF.scaleY){
 		xpBarF.setScale(0.5, misaXP.getXPPercentage()/100*2.7);
@@ -333,27 +351,66 @@ update(time, delta) {
 }
 this.setZombieVelocity = function(z){
     const zombieVelocity = z.body.velocity.clone();
-    z.body.setVelocity(0);
     if (zombieVelocity.x < 0) {
-		  z.setTexture("atlas_z", "misa-left");	
+		  z.setTexture("atlas_z", "zmisa-left");	
 	  } else if (zombieVelocity.x > 0) {
-		  z.setTexture("atlas_z", "misa-right");
+		  z.setTexture("atlas_z", "zmisa-right");
 	  } else if (zombieVelocity.y < 0) {
-		  z.setTexture("atlas_z", "misa-back");
+		  z.setTexture("atlas_z", "zmisa-back");
 	  }else if (zombieVelocity.y > 0) {
-		  z.setTexture("atlas_z", "misa-front");
+		  z.setTexture("atlas_z", "zmisa-front");
 	  }
     return z;
   } 
-  zombie0 = this.setZombieVelocity(zombie0);
-  zombie1 = this.setZombieVelocity(zombie1);
-  zombie2 = this.setZombieVelocity(zombie2);
-  zombie3 = this.setZombieVelocity(zombie3);
-  zombie4 = this.setZombieVelocity(zombie4);
-  zombie5 = this.setZombieVelocity(zombie5);
-  zombie6 = this.setZombieVelocity(zombie6);
-  zombie7 = this.setZombieVelocity(zombie7);
-  zombie8 = this.setZombieVelocity(zombie8);
-  zombie9 = this.setZombieVelocity(zombie9);
+
+  this.zombieBehavior = function(z){
+    if(z.destination <=0 || (z.body.velocity.x == 0 && z.body.velocity.y == 0)){
+      z.body.setVelocity(0);
+      z.destination = Math.floor(Math.random() * 256);
+      var dir =  Math.floor(Math.random() * 5);
+      if(dir == 0){
+        z.body.setVelocityX(-speed);
+      }else if(dir == 1){
+        z.body.setVelocityX(speed);
+      }else if(dir == 2){
+        z.body.setVelocityY(-speed);
+      }else if(dir == 3){
+        z.body.setVelocityY(speed);
+      }else{
+        z.body.setVelocity(0);
+        this.setZombieVelocity(z);
+      }
+    }else{
+      z.body.velocity.normalize().scale(speed);
+      if (z.body.velocity.x !== 0){
+        if(z.body.velocity.x > 0){
+          z.anims.play("zmisa-right-walk", true);
+        }else{
+          z.anims.play("zmisa-left-walk", true);
+        }
+      }else if(z.body.velocity.y !== 0) {
+        if(z.body.velocity.y > 0){
+           z.anims.play("zmisa-front-walk", true);
+        }else{
+          z.anims.play("zmisa-back-walk", true);
+        }
+	    } else {
+		    z.anims.stop();
+      }
+      z.destination--;
+    }
+  }
+
+  this.zombieBehavior(zombie0);
+  this.zombieBehavior(zombie1);
+  this.zombieBehavior(zombie2);
+  this.zombieBehavior(zombie3);
+  this.zombieBehavior(zombie4);
+  this.zombieBehavior(zombie5);
+  this.zombieBehavior(zombie6);
+  this.zombieBehavior(zombie7);
+  this.zombieBehavior(zombie8);
+  this.zombieBehavior(zombie9);
+
 }
 }

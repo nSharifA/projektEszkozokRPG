@@ -13,7 +13,7 @@ matrix:
           skip_cleanup: true # Don't re-run the tests
           github_token: $GITHUB_TOKEN
           keep_history: true
-          local_dir: build
+          local_dir: map_generator/build
           on:
             tags: true
             branch: master

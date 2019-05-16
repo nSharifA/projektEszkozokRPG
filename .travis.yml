@@ -8,12 +8,14 @@ matrix:
       after_success:
         - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}  
         - git tag $TRAVIS_TAG
+        - tar czvf build.tar.gz -C build .
       deploy:
-        - provider: pages
+        - provider: releases
           skip_cleanup: true # Don't re-run the tests
           github_token: $GITHUB_TOKEN
           keep_history: true
           local_dir: map_generator/build
+          file: "./build.tar.gz"
           on:
             tags: true
             branch: master

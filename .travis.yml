@@ -4,7 +4,16 @@ matrix:
       language: java
       before_script: cd map_generator
       script: ant build
-
+      deploy:
+        - provider: pages
+          skip_cleanup: true # Don't re-run the tests
+          github_token: $GITHUB_TOKEN
+          keep_history: true
+          local_dir: build
+          on:
+            tags: true
+            branch: master
+            
     - stage: "js"
       language: node_js
       before_script:
@@ -13,6 +22,7 @@ matrix:
       node_js:
         - "node"
       after_success: echo "jshint - no errors found"
+      
 
 notifications:
   email:

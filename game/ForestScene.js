@@ -364,17 +364,17 @@ this.setZombieVelocity = function(z){
   } 
 
   this.zombieBehavior = function(z){
-    if(z.destination <=0 || (z.body.velocity.x == 0 && z.body.velocity.y == 0)){
+    if(z.destination <=0 || (z.body.velocity.x === 0 && z.body.velocity.y === 0)){
       z.body.setVelocity(0);
       z.destination = Math.floor(Math.random() * 256);
       var dir =  Math.floor(Math.random() * 5);
-      if(dir == 0){
+      if(dir === 0){
         z.body.setVelocityX(-speed);
-      }else if(dir == 1){
+      }else if(dir === 1){
         z.body.setVelocityX(speed);
-      }else if(dir == 2){
+      }else if(dir === 2){
         z.body.setVelocityY(-speed);
-      }else if(dir == 3){
+      }else if(dir === 3){
         z.body.setVelocityY(speed);
       }else{
         z.body.setVelocity(0);

@@ -373,7 +373,7 @@ this.setZombieVelocity = function(z){
   } 
 
   this.zombieBehavior = function(z){
-    if(z.destination <=0 || (z.body.velocity.x == 0 && z.body.velocity.y == 0)){
+    if(z.destination <=0 || (z.body.velocity.x === 0 && z.body.velocity.y === 0)){
       z.body.setVelocity(0);
       z.destination = Math.floor(Math.random() * 256);
       var dir =  Math.floor(Math.random() * 5);
@@ -409,6 +409,7 @@ this.setZombieVelocity = function(z){
       z.destination--;
     }
   }
+  
 
   this.zombieBehavior(zombie0);
   this.zombieBehavior(zombie1);

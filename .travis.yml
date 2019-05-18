@@ -1,9 +1,25 @@
 matrix:
   include:
     - stage: "java"
+      install: true
       language: java
       before_script: cd map_generator
       script: ant build
+      after_success:
+        - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}  
+        - git tag $TRAVIS_TAG
+        - tar czvf build.tar.gz warcraft.png -C build .
+      deploy:
+        - provider: releases
+          skip_cleanup: true # Don't re-run the tests
+          github_token: $GITHUB_TOKEN
+          api_key: $GITHUB_TOKEN
+          keep_history: true
+          local_dir: map_generator/build
+          file: "./build.tar.gz"
+          on:
+            tags: true
+            branch: master
 
     - stage: "js"
       language: node_js
@@ -13,6 +29,7 @@ matrix:
       node_js:
         - "node"
       after_success: echo "jshint - no errors found"
+      
 
 notifications:
   email:

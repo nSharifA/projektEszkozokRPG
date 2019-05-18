@@ -331,12 +331,12 @@ public class PerlinNoise2D {
 		spawnPoint.accumulate("type", "");
 		spawnPoint.accumulate("visible", true);
 		spawnPoint.accumulate("width", 0);
-		int randX = new Random().nextInt(100);
-		int randY = new Random().nextInt(100);
+		int randX = new Random().nextInt(XLIMIT);
+		int randY = new Random().nextInt(YLIMIT);
 		Integer value = tilesMatrixByIDs[randX][randY];
 		while (value != 0 && value != 2) {
-			randX = new Random().nextInt(100);
-			randY = new Random().nextInt(100);
+			randX = new Random().nextInt(XLIMIT);
+			randY = new Random().nextInt(YLIMIT);
 			value = tilesMatrixByIDs[randX][randY];
 		}
 		spawnPoint.accumulate("x", (32 * randX) - 16);

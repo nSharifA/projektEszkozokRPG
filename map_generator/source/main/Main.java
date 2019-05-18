@@ -58,9 +58,7 @@ public class Main {
 		BufferedImage noiseImage = gen.getNoiseImage(false, true);
 		if (noiseImage != null) {
 			File outputfile = new File("image_seed_" + seed + "freq_" + freq + ".jpg");
-			Writer w = new OutputStreamWriter(new FileOutputStream(outputfile), "UTF-8");
-			PrintWriter pw = new PrintWriter(w);
-			pw.close();
+			ImageIO.write(noiseImage, "jpg", outputfile);
 		}
 	}
 }

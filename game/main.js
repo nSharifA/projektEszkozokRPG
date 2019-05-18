@@ -8,7 +8,7 @@ var config = {
 		default: 'arcade',
 		gravity: { y: 0 }
 	},
-	scene: [ WelcomeScene, ForestScene ]
+	scene: [ WelcomeScene, ForestScene, GameOverScene ]
 };
 
 var game = new Phaser.Game(config);

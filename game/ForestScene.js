@@ -84,7 +84,8 @@ class ForestScene extends Phaser.Scene {
     .setSize(30, 40)
     .setOffset(0, 24);
     this.physics.add.collider(this.zombie, worldLayer);
-    this.physics.add.collider(this.zombie, player);
+    //this.physics.add.collider(this.zombie, player);
+    this.physics.add.overlap(player, this.zombie, this.hitPlayer, null, this);
     console.log("x:"+spawnPoints.getSpawnPoint(r).x+", Y:"+ spawnPoints.getSpawnPoint(r).y);
     return this.zombie;
   }
@@ -287,6 +288,7 @@ this.input.keyboard.on('keydown', function (e) {
 });
 
 }
+
 update(time, delta) {
 	const speed = 125;
 	const prevVelocity = player.body.velocity.clone();
@@ -312,12 +314,19 @@ update(time, delta) {
 	if(misaHealth.getHealth()/100*2.7 !== healthBarF.scaleY){
 		healthBarF.setScale(0.5, misaHealth.getHealthPercentage()/100*2.7);
 	}
+
+  if(misaHealth.getHealth()<=0){
+    this.scene.start("GameOverScene");
+  }
 	//Redraw Misa's energy bar
 	if(misaEnergy.getEnergy()/100*2.7 !== energyBarF.scaleY){
 		energyBarF.setScale(0.9, misaEnergy.getEnergyPercentage()/100*2.7);
 		energyBarHL2.setScale(0.9, misaEnergy.getEnergyPercentage()/100*2.7);
 	}
   misaEnergy.damageEnergy(0.02);
+  if(misaEnergy.getEnergy()<=0){
+    this.scene.start("GameOverScene");
+  }
 	//Redraw Misa's XP bar
 	if(misaXP.getXP()/100*2.7 !== xpBarF.scaleY){
 		xpBarF.setScale(0.5, misaXP.getXPPercentage()/100*2.7);
@@ -369,19 +378,19 @@ this.setZombieVelocity = function(z){
       z.destination = Math.floor(Math.random() * 256);
       var dir =  Math.floor(Math.random() * 5);
       if(dir == 0){
-        z.body.setVelocityX(-speed);
+        z.body.setVelocityX(-speed-50);
       }else if(dir == 1){
-        z.body.setVelocityX(speed);
+        z.body.setVelocityX(speed-50);
       }else if(dir == 2){
-        z.body.setVelocityY(-speed);
+        z.body.setVelocityY(-speed-50);
       }else if(dir == 3){
-        z.body.setVelocityY(speed);
+        z.body.setVelocityY(speed-50);
       }else{
         z.body.setVelocity(0);
         this.setZombieVelocity(z);
       }
     }else{
-      z.body.velocity.normalize().scale(speed);
+      z.body.velocity.normalize().scale(speed-50);
       if (z.body.velocity.x !== 0){
         if(z.body.velocity.x > 0){
           z.anims.play("zmisa-right-walk", true);
@@ -413,4 +422,16 @@ this.setZombieVelocity = function(z){
   this.zombieBehavior(zombie9);
 
 }
+
+hitPlayer(player, zombie){
+  console.log("HIT! Zombie -> Player")
+  misaHealth.damaged(5);
+  var newPosX = player.x - zombie.x;
+  var newPosY = player.y - zombie.y;
+  Math.floor(newPosX);
+  Math.floor(newPosY);
+  player.x+=newPosX;
+  player.y+=newPosY;
+}
+
 }

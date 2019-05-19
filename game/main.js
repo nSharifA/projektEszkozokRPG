@@ -12,3 +12,4 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+var score = 0;

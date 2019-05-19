@@ -17,7 +17,7 @@ function ExperiencePoints(){
 
     this.addXP = function(add){
         this.xp = this.xp + add;
-        if(this.xp > this.nextLevel){
+        if(this.xp >= this.nextLevel){
             this.xp = this.xp - this.nextLevel;
             this.level++;
         }

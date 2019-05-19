@@ -14,6 +14,8 @@ let zombieTemp; //temp
 let showDebug = false;
 let actionBar;
 let actionBarSelect;
+let action1;
+let actionTime = 0;
 let bars;
 let healthBarB;
 let healthBarF;
@@ -30,6 +32,7 @@ let actionSelect = 1;
 let misaHealth;
 let misaEnergy;
 let misaXP;
+let misaXPLevel = 1;
 
 class ForestScene extends Phaser.Scene {
 
@@ -41,6 +44,7 @@ class ForestScene extends Phaser.Scene {
 		this.load.image("warcraft", "../graphics/warcraft.png");
     this.load.image("ActionBar", "../graphics/Action_Bar.png");
     this.load.image("ActionBarSelect", "../graphics/Action_Bar_Select.png");
+    this.load.image("Action1", "../graphics/Action_1.png");
     this.load.image("Bars","../graphics/Bars.png");
     this.load.image("HealthBarB","../graphics/BackBar.png");
     this.load.image("HealthBarF","../graphics/FrontBar.png");
@@ -75,6 +79,12 @@ class ForestScene extends Phaser.Scene {
   .sprite(spawnPoint.x, spawnPoint.y, "atlas", "misa-front")
   .setSize(30, 40)
   .setOffset(0, 24);
+  action1 = this.physics.add
+  .sprite(player.x, player.y, "Action1")
+  .setSize(30, 40)
+  .setOffset(0, 24);
+  action1.disableBody(true, true);
+  action1.name = "front";	
 
   this.setZombie = function(zombie){
     var spawnPoints = new SpawnPoints();
@@ -84,9 +94,7 @@ class ForestScene extends Phaser.Scene {
     .setSize(30, 40)
     .setOffset(0, 24);
     this.physics.add.collider(this.zombie, worldLayer);
-    //this.physics.add.collider(this.zombie, player);
     this.physics.add.overlap(player, this.zombie, this.hitPlayer, null, this);
-    console.log("x:"+spawnPoints.getSpawnPoint(r).x+", Y:"+ spawnPoints.getSpawnPoint(r).y);
     return this.zombie;
   }
 
@@ -101,14 +109,6 @@ class ForestScene extends Phaser.Scene {
   zombie8 = this.setZombie(zombie8);
   zombie9 = this.setZombie(zombie9);
 
-  /*zombieTemp = this.physics.add
-    .sprite(spawnPoint.x-50, spawnPoint.y, "atlas_z", "zmisa-front")
-    .setSize(30, 40)
-    .setOffset(0, 24);
-  this.physics.add.collider(zombieTemp, worldLayer);
-  this.physics.add.collider(zombieTemp, player);
-
-  zombieTemp.destination =  Math.floor(Math.random() * 30);*/
 
   // Watch the player and worldLayer for collisions, for the duration of the scene:
   this.physics.add.collider(player, worldLayer);
@@ -144,6 +144,7 @@ class ForestScene extends Phaser.Scene {
   misaHealth = new HealthPoints(125);
   misaEnergy = new EnergyPoints(360);
   misaXP = new ExperiencePoints();
+  score = 0;
 
   const camera = this.cameras.main;
 /*  camera.zoom = 1.4;*/
@@ -154,7 +155,7 @@ class ForestScene extends Phaser.Scene {
 
   // Help text that has a "fixed" position on the screen
   this.add
-  .text(16, 16, 'Arrow keys to move\nPress "D" to show hitboxes', {
+  .text(16, 16, 'Arrow keys to move\nSpace key to attack\nPress "D" to show hitboxes', {
   	font: "18px monospace",
   	fill: "#000000",
   	padding: { x: 20, y: 10 },
@@ -292,6 +293,7 @@ this.input.keyboard.on('keydown', function (e) {
 update(time, delta) {
 	const speed = 125;
 	const prevVelocity = player.body.velocity.clone();
+  let spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
 	// Stop any previous movement from the last frame
 	player.body.setVelocity(0);
@@ -310,12 +312,64 @@ update(time, delta) {
 		player.body.setVelocityY(speed);
 	}
 
+  //Player action1
+  if(Phaser.Input.Keyboard.JustDown(spacebar)){
+    action1.disableBody(true, true);
+    var actName = action1.name;
+    if(actName == "front"){
+      action1 = this.physics.add
+    .sprite(player.x, player.y+40, "Action1")
+    .setSize(30, 40)
+    .setOffset(0, -15);
+    }else if(actName == "back"){
+      action1 = this.physics.add
+    .sprite(player.x, player.y-15, "Action1")
+    .setSize(30, 40)
+    .setOffset(0, 0)
+    .setRotation(3.14);
+    }else if(actName == "left"){
+      action1 = this.physics.add
+    .sprite(player.x-30, player.y+5, "Action1")
+    .setSize(30, 40)
+    .setOffset(1, 0)
+    .setRotation(3.14/2);
+    }else if(actName == "right"){
+      action1 = this.physics.add
+    .sprite(player.x+30, player.y+5, "Action1")
+    .setRotation(-3.14/2)
+    .setSize(30, 40)
+    .setOffset(-1, 0);
+    }
+    action1.name = actName;
+    actionTime = 8;
+    this.physics.add.overlap(action1, zombie0, this.hitZombie, null, this);
+    this.physics.add.overlap(action1, zombie1, this.hitZombie, null, this);
+    this.physics.add.overlap(action1, zombie2, this.hitZombie, null, this);
+    this.physics.add.overlap(action1, zombie3, this.hitZombie, null, this);
+    this.physics.add.overlap(action1, zombie4, this.hitZombie, null, this);
+    this.physics.add.overlap(action1, zombie5, this.hitZombie, null, this);
+    this.physics.add.overlap(action1, zombie6, this.hitZombie, null, this);
+    this.physics.add.overlap(action1, zombie7, this.hitZombie, null, this);
+    this.physics.add.overlap(action1, zombie8, this.hitZombie, null, this);
+    this.physics.add.overlap(action1, zombie9, this.hitZombie, null, this);
+    
+  }
+
+  if(actionTime > 0){
+    actionTime--;
+    if(actionTime == 0){
+      action1.disableBody(true, true);
+    }
+  }
+
 	//Redraw Misa's health bar
 	if(misaHealth.getHealth()/100*2.7 !== healthBarF.scaleY){
 		healthBarF.setScale(0.5, misaHealth.getHealthPercentage()/100*2.7);
 	}
 
   if(misaHealth.getHealth()<=0){
+    score = score + (100 * misaXP.getLevel()-100);
+    score = score + misaXP.getXP();
     this.scene.start("GameOverScene");
   }
 	//Redraw Misa's energy bar
@@ -325,12 +379,20 @@ update(time, delta) {
 	}
   misaEnergy.damageEnergy(0.02);
   if(misaEnergy.getEnergy()<=0){
+    score = score + (100 * misaXP.getLevel())-100;
+    score = score + misaXP.getXP();
     this.scene.start("GameOverScene");
   }
 	//Redraw Misa's XP bar
 	if(misaXP.getXP()/100*2.7 !== xpBarF.scaleY){
 		xpBarF.setScale(0.5, misaXP.getXPPercentage()/100*2.7);
 	}
+  if(misaXPLevel !== misaXP.getLevel()){
+    misaXPLevel = misaXP.getLevel()
+    misaEnergy.addEnergy(50);
+    misaHealth.heal(25);
+    score = score + 100;
+  }
 
 	// Normalize and scale the velocity so that player can't move faster along a diagonal
 	player.body.velocity.normalize().scale(speed);
@@ -338,18 +400,22 @@ update(time, delta) {
 	// Update the animation last and give left/right animations precedence over up/down animations
 	if (cursors.left.isDown) {
 		player.anims.play("misa-left-walk", true);
+    action1.name = "left";	
 	} else if (cursors.right.isDown) {
 		player.anims.play("misa-right-walk", true);
+    action1.name = "right";	
 	} else if (cursors.up.isDown) {
 		player.anims.play("misa-back-walk", true);
+    action1.name = "back";	
 	} else if (cursors.down.isDown) {
 		player.anims.play("misa-front-walk", true);
+    action1.name = "front";	
 	} else {
 		player.anims.stop();
 
 	// If we were moving, pick and idle frame to use
 	if (prevVelocity.x < 0) {
-		player.setTexture("atlas", "misa-left");	
+		player.setTexture("atlas", "misa-left");
 	} else if (prevVelocity.x > 0) {
 		player.setTexture("atlas", "misa-right");
 	} else if (prevVelocity.y < 0) {
@@ -373,7 +439,7 @@ this.setZombieVelocity = function(z){
   } 
 
   this.zombieBehavior = function(z){
-    if(z.destination <=0 || (z.body.velocity.x === 0 && z.body.velocity.y === 0)){
+    if(z.destination <=0 || (z.body.velocity.x == 0 && z.body.velocity.y == 0)){
       z.body.setVelocity(0);
       z.destination = Math.floor(Math.random() * 256);
       var dir =  Math.floor(Math.random() * 5);
@@ -406,10 +472,22 @@ this.setZombieVelocity = function(z){
 	    } else {
 		    z.anims.stop();
       }
+      if(z.x<1){
+        z.x = 1;
+        z.destination = 0;
+      }if(z.y<1){
+        z.y = 1;
+        z.destination = 0;
+      }if(z.x>3183){
+        z.x = 3183;
+        z.destination = 0;
+      }if(z.y>3166){
+        z.y = 3166;
+        z.destination = 0;
+      }
       z.destination--;
     }
   }
-  
 
   this.zombieBehavior(zombie0);
   this.zombieBehavior(zombie1);
@@ -425,8 +503,8 @@ this.setZombieVelocity = function(z){
 }
 
 hitPlayer(player, zombie){
-  console.log("HIT! Zombie -> Player")
-  misaHealth.damaged(5);
+  misaHealth.damaged(10);
+  misaXP.addXP(-1)
   var newPosX = player.x - zombie.x;
   var newPosY = player.y - zombie.y;
   Math.floor(newPosX);
@@ -434,5 +512,18 @@ hitPlayer(player, zombie){
   player.x+=newPosX;
   player.y+=newPosY;
 }
+
+hitZombie(Action1, zombie){
+  this.reSetZombie(zombie);
+  misaXP.addXP(10);
+  score = score + 10;
+}
+
+reSetZombie = function(zombie){
+    var spawnPoints = new SpawnPoints();
+    var r = Math.floor(Math.random() * 30);
+    zombie.x = spawnPoints.getSpawnPoint(r).x;
+    zombie.y = spawnPoints.getSpawnPoint(r).y;
+  }
 
 }

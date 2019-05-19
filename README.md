@@ -11,3 +11,4 @@
 >1. letöltjük a repot.
 >2. feltoljuk a webszerverünkre a game mappa tartalmát. (Én xampp-ot használok erre, csak egy cfg   fájlt kell átírni (httpd.conf -> DocumentRoot és Directory), hogy rámutasson a game mappára majd start gombot megnyomva a localhost:80-n elérhető a játék)
 >3. megnyitjuk a weboldalt és kész, start gombra kattintva elindul a játék.
+(Vagy kipróbálható itt: http://baraneki.epizy.com)
